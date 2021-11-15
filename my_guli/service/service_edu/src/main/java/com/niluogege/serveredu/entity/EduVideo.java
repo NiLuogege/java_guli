@@ -2,6 +2,7 @@ package com.niluogege.serveredu.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -78,7 +79,7 @@ public class EduVideo implements Serializable {
     private LocalDateTime gmtCreate;
 
     @ApiModelProperty(value = "更新时间")
-    @TableField("gmt_modified")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private LocalDateTime gmtModified;
 
 
