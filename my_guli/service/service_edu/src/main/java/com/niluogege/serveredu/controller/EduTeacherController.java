@@ -7,6 +7,7 @@ import com.niluogege.commonutils.R;
 import com.niluogege.serveredu.entity.EduTeacher;
 import com.niluogege.serveredu.entity.TeacherQuery;
 import com.niluogege.serveredu.service.EduTeacherService;
+import com.niluogege.servicebase.exceptionhandler.ServiceException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
@@ -92,7 +93,7 @@ public class EduTeacherController {
     ) {
 
         if (StringUtils.isEmpty(teacher.getId())) {
-            throw new RuntimeException("teacher id 为空");
+            throw new ServiceException(40001, "teacher id 为空");
         }
         if (teacherService.updateById(teacher)) {
             return R.ok();
