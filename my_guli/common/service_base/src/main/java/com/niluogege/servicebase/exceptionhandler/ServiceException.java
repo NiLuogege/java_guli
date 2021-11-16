@@ -14,4 +14,6 @@ public class ServiceException extends RuntimeException{
     private Integer code;
     @ApiModelProperty("错误信息")
     private String msg;
+
+
 }

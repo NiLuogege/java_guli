@@ -1,9 +1,12 @@
 package com.niluogege.servicebase.exceptionhandler;
 
+import com.niluogege.commonutils.ExceptionUtil;
 import com.niluogege.commonutils.R;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+@Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -15,6 +18,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(value = Exception.class)
     public R exceptionHandler(Exception e) {
+        log.error(ExceptionUtil.getMessage(e));
         e.printStackTrace();
         return R.error();
     }
@@ -26,6 +30,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(value = RuntimeException.class)
     public R runtimeExceptionHandler(RuntimeException e) {
+        log.error(ExceptionUtil.getMessage(e));
         e.printStackTrace();
         return R.error().message("特定异常处理");
     }
@@ -37,6 +42,8 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(value = ServiceException.class)
     public R serviceExceptionHandler(ServiceException e) {
+        log.error(e.getMsg());
+        log.error(ExceptionUtil.getMessage(e));
         e.printStackTrace();
         return R.error().code(e.getCode()).message(e.getMsg());
     }
