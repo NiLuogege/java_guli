@@ -1,5 +1,6 @@
 package com.niluogege.serveredu.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
@@ -23,7 +24,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("edu_teacher")
-@ApiModel(value="EduTeacher对象", description="讲师")
+@ApiModel(value = "EduTeacher对象", description = "讲师")
 public class EduTeacher implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -53,12 +54,14 @@ public class EduTeacher implements Serializable {
     @TableField("is_deleted")
     private Boolean isDeleted;
 
+    //新增的时候自动注入
     @ApiModelProperty(value = "创建时间")
-    @TableField("gmt_create")
+    @TableField(value = "gmt_create", fill = FieldFill.INSERT)
     private LocalDateTime gmtCreate;
 
+    //新增和更新的时候自动注入
     @ApiModelProperty(value = "更新时间")
-    @TableField("gmt_modified")
+    @TableField(value = "gmt_modified", fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime gmtModified;
 
 

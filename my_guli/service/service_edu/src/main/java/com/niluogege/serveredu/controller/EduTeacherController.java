@@ -8,10 +8,12 @@ import com.niluogege.serveredu.entity.EduTeacher;
 import com.niluogege.serveredu.entity.TeacherQuery;
 import com.niluogege.serveredu.service.EduTeacherService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -63,4 +65,39 @@ public class EduTeacherController {
         return R.ok();
     }
 
+
+    @ApiOperation("新增讲师")
+    @PostMapping("/")
+    public R save(
+            @ApiParam(name = "teacher", value = "teacher json", required = true) @RequestBody EduTeacher teacher
+    ) {
+        if (teacherService.save(teacher)) {
+            return R.ok();
+        }
+        return R.error();
+    }
+
+    @ApiOperation("通过id 获取")
+    @GetMapping("/{id}")
+    public R getById(
+            @ApiParam(name = "id", value = "教师id", required = true) @PathVariable String id
+    ) {
+        return R.ok().data("teacher", teacherService.getById(id));
+    }
+
+    @ApiOperation("更新操作")
+    @PutMapping("/")
+    public R updateById(
+            @ApiParam(name = "teacher", value = "教师json", required = true) @RequestBody EduTeacher teacher
+    ) {
+
+        if (StringUtils.isEmpty(teacher.getId())) {
+            throw new RuntimeException("teacher id 为空");
+        }
+        if (teacherService.updateById(teacher)) {
+            return R.ok();
+        }
+
+        return R.error();
+    }
 }
