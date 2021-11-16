@@ -1,7 +1,10 @@
 package com.niluogege.serveredu.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.niluogege.serveredu.entity.EduTeacher;
+import com.niluogege.serveredu.entity.TeacherQuery;
 
 /**
  * <p>
@@ -13,4 +16,11 @@ import com.niluogege.serveredu.entity.EduTeacher;
  */
 public interface EduTeacherService extends IService<EduTeacher> {
 
+    /**
+     * 分页加筛选
+     * @param teacherPage
+     * @param query
+     * @return
+     */
+    IPage<EduTeacher> pageQueue(Page<EduTeacher> teacherPage, TeacherQuery query);
 }

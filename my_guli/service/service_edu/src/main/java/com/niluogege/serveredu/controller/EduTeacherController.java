@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.niluogege.commonutils.R;
 import com.niluogege.serveredu.entity.EduTeacher;
+import com.niluogege.serveredu.entity.TeacherQuery;
 import com.niluogege.serveredu.service.EduTeacherService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -32,14 +33,15 @@ public class EduTeacherController {
     private EduTeacherService teacherService;
 
     @ApiOperation("分页列表")
-    @GetMapping("/{page}/{limit}")
+    @PostMapping("/{page}/{limit}")
     public R pageList(
             @ApiParam(name = "page", value = "当前页码", required = true) @PathVariable Integer page,
-            @ApiParam(name = "limit", value = "每页数量", required = true) @PathVariable Integer limit
+            @ApiParam(name = "limit", value = "每页数量", required = true) @PathVariable Integer limit,
+            @ApiParam(name = "teacherQueue", value = "查询对象", required = false) @RequestBody TeacherQuery query
     ) {
 
-        Page<EduTeacher> teacherPage = new Page<>(page,limit);
-        IPage<EduTeacher> iPage = teacherService.page(teacherPage, null);
+        Page<EduTeacher> teacherPage = new Page<>(page, limit);
+        IPage<EduTeacher> iPage = teacherService.pageQueue(teacherPage, query);
         return R.ok()
                 .data("total", iPage.getTotal())
                 .data("list", iPage.getRecords());
