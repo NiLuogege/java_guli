@@ -1,6 +1,7 @@
 package com.niluogege.serveredu.controller;
 
 
+import com.niluogege.commonutils.R;
 import com.niluogege.serveredu.entity.EduTeacher;
 import com.niluogege.serveredu.service.EduTeacherService;
 import io.swagger.annotations.Api;
@@ -30,17 +31,17 @@ public class EduTeacherController {
 
     @ApiOperation("获取所有讲师")
     @GetMapping("/")
-    public List<EduTeacher> list() {
-        return teacherService.list(null);
+    public R list() {
+        return R.ok().data("item",teacherService.list(null));
     }
 
 
     @ApiOperation("根据ID删除讲师")
     @DeleteMapping("/{id}")
-    public boolean removeById(
+    public R removeById(
             @ApiParam(name = "id", value = "讲师id", required = true) @PathVariable String id
     ) {
-        return teacherService.removeById(id);
+        return R.ok();
     }
 
 }
