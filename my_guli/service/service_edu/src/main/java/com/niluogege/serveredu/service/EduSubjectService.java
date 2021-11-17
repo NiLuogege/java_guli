@@ -2,6 +2,7 @@ package com.niluogege.serveredu.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.niluogege.serveredu.entity.EduSubject;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * <p>
@@ -13,4 +14,8 @@ import com.niluogege.serveredu.entity.EduSubject;
  */
 public interface EduSubjectService extends IService<EduSubject> {
 
+    /**
+     * 通过 Excel 导入课程
+     */
+    void importSubject(MultipartFile file);
 }
