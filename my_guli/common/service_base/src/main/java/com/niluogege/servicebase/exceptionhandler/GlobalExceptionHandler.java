@@ -42,7 +42,6 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(value = ServiceException.class)
     public R serviceExceptionHandler(ServiceException e) {
-        log.error(e.getMsg());
         log.error(ExceptionUtil.getMessage(e));
         e.printStackTrace();
         return R.error().code(e.getCode()).message(e.getMsg());
