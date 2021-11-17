@@ -1,15 +1,14 @@
-package com.niluogege.oss.uitls.service.impl;
+package com.niluogege.oss.service.impl;
 
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.model.CannedAccessControlList;
 import com.niluogege.oss.uitls.ConstantPropertiesUtil;
-import com.niluogege.oss.uitls.service.FileService;
+import com.niluogege.oss.service.FileService;
 import org.joda.time.DateTime;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.UUID;
 

@@ -1,7 +1,7 @@
-package com.niluogege.oss.uitls.contorller;
+package com.niluogege.oss.contorller;
 
 import com.niluogege.commonutils.R;
-import com.niluogege.oss.uitls.service.FileService;
+import com.niluogege.oss.service.FileService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
