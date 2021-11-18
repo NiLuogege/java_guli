@@ -10,6 +10,7 @@ import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * <p>
@@ -50,5 +51,9 @@ public class EduSubject implements Serializable {
     @TableField(value = "gmt_modified", fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime gmtModified;
 
+
+    @ApiModelProperty("子分类")
+    @TableField(exist = false)
+    private List<EduSubject> children;
 
 }

@@ -9,6 +9,7 @@ import com.niluogege.serveredu.listener.SubjectExcelListener;
 import com.niluogege.serveredu.mapper.EduSubjectMapper;
 import com.niluogege.serveredu.service.EduSubjectService;
 import com.niluogege.servicebase.exceptionhandler.ServiceException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -29,6 +30,9 @@ import java.util.List;
  */
 @Service
 public class EduSubjectServiceImpl extends ServiceImpl<EduSubjectMapper, EduSubject> implements EduSubjectService {
+
+    @Autowired
+    private  EduSubjectMapper subjectMapper;
 
     /**
      * 通过 Excel 导入课程
@@ -63,5 +67,10 @@ public class EduSubjectServiceImpl extends ServiceImpl<EduSubjectMapper, EduSubj
         }
 
         return list;
+    }
+
+    @Override
+    public List<EduSubject> getSubjectsTree() {
+      return   subjectMapper.getSubjectsTree();
     }
 }

@@ -25,4 +25,10 @@ public interface EduSubjectService extends IService<EduSubject> {
      * 导出Excel
      */
     List<ExcelSubjectData> downSubjects();
+
+    /**
+     * 获取分裂树形结构
+     * @return
+     */
+    List<EduSubject> getSubjectsTree();
 }

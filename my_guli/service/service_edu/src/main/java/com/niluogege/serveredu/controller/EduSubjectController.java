@@ -31,6 +31,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/serveredu/edu-subject")
 @Api(tags = "EduSubjectController")
+@CrossOrigin//解决跨域问题
 public class EduSubjectController {
 
     @Autowired
@@ -47,19 +48,26 @@ public class EduSubjectController {
     }
 
     @ApiOperation("导出所有课程分类")
-    @GetMapping(value = "/downloadSubjects",produces = "application/octet-stream")
-    public void downSubjects(HttpServletRequest request, HttpServletResponse response){
+    @GetMapping(value = "/downloadSubjects", produces = "application/octet-stream")
+    public void downSubjects(HttpServletRequest request, HttpServletResponse response) {
         try {
 
-            response.setHeader("content-disposition", "attachment;filename=" + URLEncoder.encode("课程分类.xls","UTF-8"));
+            response.setHeader("content-disposition", "attachment;filename=" + URLEncoder.encode("课程分类.xls", "UTF-8"));
 
             ServletOutputStream outputStream = response.getOutputStream();
             List<ExcelSubjectData> list = subjectService.downSubjects();
 
-            EasyExcel.write(outputStream,ExcelSubjectData.class).sheet("sheet1").doWrite(list);
+            EasyExcel.write(outputStream, ExcelSubjectData.class).sheet("sheet1").doWrite(list);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+
+    @GetMapping("/tree")
+    @ApiOperation("获取分裂树形结构")
+    public R getSubjectsTree() {
+        List<EduSubject> list = subjectService.getSubjectsTree();
+        return R.ok().data("list", list);
+    }
 }

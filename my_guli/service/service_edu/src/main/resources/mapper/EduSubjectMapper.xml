@@ -12,9 +12,33 @@
         <result column="gmt_modified" property="gmtModified" />
     </resultMap>
 
+    <resultMap id="subjectsTree" type="com.niluogege.serveredu.entity.EduSubject" extends="BaseResultMap">
+        <collection property="children" ofType="com.niluogege.serveredu.entity.EduSubject">
+            <id column="id2" property="id" />
+            <result column="title2" property="title" />
+            <result column="parentId2" property="parentId" />
+        </collection>
+    </resultMap>
+
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         id, title, parent_id, sort, gmt_create, gmt_modified
     </sql>
+
+
+    <select id="getSubjectsTree" resultMap="subjectsTree">
+        SELECT
+            s1.id,
+            s1.title,
+            s2.id as id2,
+            s2.title as title2,
+            s2.parent_id as parentId2
+        FROM
+            edu_subject s1,
+            edu_subject s2
+        WHERE
+            s2.parent_id = s1.id
+        ORDER BY s1.sort desc
+    </select>
 
 </mapper>
