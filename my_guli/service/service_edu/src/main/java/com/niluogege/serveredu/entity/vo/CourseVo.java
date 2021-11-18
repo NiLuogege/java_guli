@@ -20,7 +20,7 @@ public class CourseVo  implements Serializable {
     @ApiModelProperty(value = "课程ID")
     private String id;
 
-    @ApiModelProperty(value = "课程讲师ID")
+    @ApiModelProperty(value = "课程讲师ID" ,required = true)
     @TableField("teacher_id")
     private String teacherId;
 

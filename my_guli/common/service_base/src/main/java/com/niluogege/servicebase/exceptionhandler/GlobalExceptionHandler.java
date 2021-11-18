@@ -32,7 +32,7 @@ public class GlobalExceptionHandler {
     public R runtimeExceptionHandler(RuntimeException e) {
         log.error(ExceptionUtil.getMessage(e));
         e.printStackTrace();
-        return R.error().message("特定异常处理");
+        return R.error().message(e.getMessage());
     }
 
      /**
