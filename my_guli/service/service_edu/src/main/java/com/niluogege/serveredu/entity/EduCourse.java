@@ -1,7 +1,6 @@
 package com.niluogege.serveredu.entity;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -30,6 +29,7 @@ public class EduCourse implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "课程ID")
+    @TableId(value = "id",type = IdType.ID_WORKER_STR)
     private String id;
 
     @ApiModelProperty(value = "课程讲师ID")
@@ -75,11 +75,11 @@ public class EduCourse implements Serializable {
     private Integer isDeleted;
 
     @ApiModelProperty(value = "创建时间")
-    @TableField("gmt_create")
+    @TableField(value = "gmt_create",fill = FieldFill.INSERT)
     private LocalDateTime gmtCreate;
 
     @ApiModelProperty(value = "更新时间")
-    @TableField("gmt_modified")
+    @TableField(value = "gmt_modified",fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime gmtModified;
 
 

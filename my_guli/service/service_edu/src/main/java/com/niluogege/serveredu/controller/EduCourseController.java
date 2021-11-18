@@ -1,8 +1,14 @@
 package com.niluogege.serveredu.controller;
 
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.niluogege.commonutils.R;
+import com.niluogege.serveredu.entity.vo.CourseVo;
+import com.niluogege.serveredu.service.EduCourseService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -14,6 +20,21 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/serveredu/edu-course")
+@CrossOrigin//解决跨域问题
+@Api(tags = "EduCourseController")
 public class EduCourseController {
+
+    @Autowired
+    private EduCourseService courseService;
+
+    @ApiOperation("添加课程")
+    @PostMapping("/")
+    public R addCourse(
+            @ApiParam(name = "courseVo", value = "课程", required = true) @RequestBody CourseVo courseVo
+    ) {
+        String courseId = courseService.addCourse(courseVo);
+        return R.ok().data("id",courseId);
+    }
+
 
 }
