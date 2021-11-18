@@ -27,4 +27,11 @@ public interface EduCourseService extends IService<EduCourse> {
      * @return
      */
     CourseVo getCourseById(String courseId);
+
+    /**
+     * 通过id更新课程
+     * @param courseVo
+     * @return
+     */
+    boolean updateCourseById(CourseVo courseVo);
 }
