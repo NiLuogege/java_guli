@@ -7,6 +7,7 @@ import com.niluogege.serveredu.entity.vo.CourseVo;
 import com.niluogege.serveredu.mapper.EduCourseMapper;
 import com.niluogege.serveredu.service.EduCourseDescriptionService;
 import com.niluogege.serveredu.service.EduCourseService;
+import com.niluogege.servicebase.exceptionhandler.ServiceException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -92,11 +93,18 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
 
         //更逊课程
         boolean result1 = updateById(eduCourse);
+        if (!result1){
+            throw new ServiceException(-1,"更逊课程失败");
+        }
 
         EduCourseDescription eduCourseDescription = new EduCourseDescription();
         BeanUtils.copyProperties(courseVo, eduCourseDescription);
         //更逊描述
         boolean result2 = courseDescriptionService.updateById(eduCourseDescription);
+
+        if (!result2){
+            throw new ServiceException(-1,"更逊描述失败");
+        }
 
         return result1 && result2;
     }
