@@ -51,4 +51,19 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
 
         return courseId;
     }
+
+    @Override
+    public CourseVo getCourseById(String courseId) {
+
+        CourseVo courseVo = new CourseVo();
+
+        EduCourse eduCourse = getById(courseId);
+        BeanUtils.copyProperties(eduCourse,courseVo);
+
+        EduCourseDescription courseDescription = courseDescriptionService.getById(courseId);
+        BeanUtils.copyProperties(eduCourse,courseDescription);
+
+
+        return  courseVo;
+    }
 }

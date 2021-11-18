@@ -36,5 +36,15 @@ public class EduCourseController {
         return R.ok().data("id",courseId);
     }
 
+    @ApiOperation("通过id 获取课程详情")
+    @GetMapping("/{id}")
+    public R getCourseById(
+            @ApiParam(value = "课程id",required = true) @PathVariable String id
+    ){
+
+        CourseVo vo=  courseService.getCourseById(id);
+        return R.ok().data(vo);
+    }
+
 
 }
