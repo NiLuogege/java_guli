@@ -21,9 +21,38 @@
         <result column="gmt_modified" property="gmtModified" />
     </resultMap>
 
+    <resultMap id="coursePublishVo" type="com.niluogege.serveredu.entity.vo.CoursePublishVo" extends="BaseResultMap">
+        <result property="subjectLevelOne" column="one"/>
+        <result property="subjectLevelTwo" column="two"/>
+        <result property="teacherName" column="teacherName"/>
+    </resultMap>
+
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         id, teacher_id, subject_id, subject_parent_id, title, price, lesson_num, cover, buy_count, view_count, version, status, is_deleted, gmt_create, gmt_modified
     </sql>
+
+
+    <select id="getCoursePublishVo" resultMap="coursePublishVo">
+
+        SELECT
+            c.title,
+            c.cover,
+            c.lesson_num,
+            c.price,
+            s1.title as one,
+            s2.title as two,
+            t.name as teacherName
+        FROM
+            edu_course as c LEFT JOIN edu_subject as s1 ON c.subject_id = s1.id
+                            LEFT JOIN edu_subject as s2 ON c.subject_parent_id = s2.id
+                            LEFT JOIN edu_teacher as t ON c.teacher_id = t.id
+
+
+        WHERE
+            c.id=#{courseId}
+
+
+    </select>
 
 </mapper>

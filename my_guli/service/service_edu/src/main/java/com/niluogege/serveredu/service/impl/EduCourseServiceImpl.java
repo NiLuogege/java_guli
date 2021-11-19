@@ -3,6 +3,7 @@ package com.niluogege.serveredu.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.niluogege.serveredu.entity.EduCourse;
 import com.niluogege.serveredu.entity.EduCourseDescription;
+import com.niluogege.serveredu.entity.vo.CoursePublishVo;
 import com.niluogege.serveredu.entity.vo.CourseVo;
 import com.niluogege.serveredu.mapper.EduCourseMapper;
 import com.niluogege.serveredu.service.EduCourseDescriptionService;
@@ -27,7 +28,11 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
     @Autowired
     private EduCourseDescriptionService courseDescriptionService;
 
+    @Autowired
+    private EduCourseMapper courseMapper;
+
     /**
+     *
      * 添加课程
      *
      * @param courseVo
@@ -107,5 +112,16 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         }
 
         return result1 && result2;
+    }
+
+    /**
+     * 发布详情
+     * @param courseId
+     * @return
+     */
+    @Override
+    public CoursePublishVo getCoursePublishVo(String courseId) {
+      return   courseMapper.getCoursePublishVo(courseId);
+
     }
 }

@@ -2,6 +2,7 @@ package com.niluogege.serveredu.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.niluogege.serveredu.entity.EduCourse;
+import com.niluogege.serveredu.entity.vo.CoursePublishVo;
 import com.niluogege.serveredu.entity.vo.CourseVo;
 
 /**
@@ -34,4 +35,11 @@ public interface EduCourseService extends IService<EduCourse> {
      * @return
      */
     boolean updateCourseById(CourseVo courseVo);
+
+    /**
+     * 发布详情
+     * @param courseId
+     * @return
+     */
+    CoursePublishVo getCoursePublishVo(String courseId);
 }

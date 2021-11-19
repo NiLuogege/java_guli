@@ -2,6 +2,7 @@ package com.niluogege.serveredu.controller;
 
 
 import com.niluogege.commonutils.R;
+import com.niluogege.serveredu.entity.vo.CoursePublishVo;
 import com.niluogege.serveredu.entity.vo.CourseVo;
 import com.niluogege.serveredu.service.EduCourseService;
 import io.swagger.annotations.Api;
@@ -58,6 +59,16 @@ public class EduCourseController {
         } else {
             return R.error();
         }
+    }
+
+
+    @ApiOperation("发布详情")
+    @GetMapping("/publish/{courseId}")
+    public R getCoursePublishVo(
+            @ApiParam(value = "courseId", required = true) @PathVariable String courseId
+    ) {
+        CoursePublishVo result = courseService.getCoursePublishVo(courseId);
+        return R.ok().data(result);
     }
 
 }
