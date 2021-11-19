@@ -13,4 +13,5 @@ import com.niluogege.serveredu.entity.EduVideo;
  */
 public interface EduVideoService extends IService<EduVideo> {
 
+    Integer getCountByChapterId(String chapterId);
 }
