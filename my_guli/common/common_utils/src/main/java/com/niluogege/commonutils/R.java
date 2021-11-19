@@ -68,4 +68,8 @@ public class R {
         return this;
     }
 
+
+    public static R simpleReturn(boolean result) {
+        return result ? R.ok() : R.error();
+    }
 }

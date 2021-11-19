@@ -2,6 +2,7 @@ package com.niluogege.serveredu.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.niluogege.serveredu.entity.EduVideo;
+import com.niluogege.serveredu.entity.EduVideoForm;
 
 /**
  * <p>
@@ -14,4 +15,8 @@ import com.niluogege.serveredu.entity.EduVideo;
 public interface EduVideoService extends IService<EduVideo> {
 
     Integer getCountByChapterId(String chapterId);
+
+    boolean add(EduVideoForm videoForm);
+
+    boolean updateById(EduVideoForm videoForm);
 }
