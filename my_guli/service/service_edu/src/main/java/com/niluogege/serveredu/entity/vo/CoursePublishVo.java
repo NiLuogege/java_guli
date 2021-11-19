@@ -23,5 +23,5 @@ public class CoursePublishVo implements Serializable {
     @ApiModelProperty("老师名称")
     private String teacherName;
     @ApiModelProperty("课程价格")
-    private BigDecimal price;//只用于显示
+    private String price;//只用于显示
 }
