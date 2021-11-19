@@ -4,17 +4,38 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.niluogege.serveredu.entity.EduChapter">
-        <id column="id" property="id" />
-        <result column="course_id" property="courseId" />
-        <result column="title" property="title" />
-        <result column="sort" property="sort" />
-        <result column="gmt_create" property="gmtCreate" />
-        <result column="gmt_modified" property="gmtModified" />
+        <id column="id" property="id"/>
+        <result column="course_id" property="courseId"/>
+        <result column="title" property="title"/>
+        <result column="sort" property="sort"/>
+        <result column="gmt_create" property="gmtCreate"/>
+        <result column="gmt_modified" property="gmtModified"/>
+    </resultMap>
+
+    <resultMap id="chapterTree" type="com.niluogege.serveredu.entity.EduChapter" extends="BaseResultMap">
+        <collection property="children" ofType="com.niluogege.serveredu.entity.EduVideo">
+            <id column="vId" property="id"/>
+            <result column="vTitle" property="title"/>
+        </collection>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         id, course_id, title, sort, gmt_create, gmt_modified
     </sql>
+
+
+    <select id="getChapterTree" resultMap="chapterTree">
+        SELECT
+        ec.*,
+        ev.id as vId,
+        ev.title as vTitle
+        FROM edu_chapter as ec LEFT JOIN edu_video as ev on ec.id=ev.chapter_id
+
+        <if test="courseId!=null and courseId!=''">
+            where ec.course_id=#{courseId}
+        </if>
+
+    </select>
 
 </mapper>

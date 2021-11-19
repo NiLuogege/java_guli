@@ -3,6 +3,8 @@ package com.niluogege.serveredu.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.niluogege.serveredu.entity.EduChapter;
 
+import java.util.List;
+
 /**
  * <p>
  * 课程 服务类
@@ -13,4 +15,9 @@ import com.niluogege.serveredu.entity.EduChapter;
  */
 public interface EduChapterService extends IService<EduChapter> {
 
+    /**
+     * 获取章节 小节的树
+     * @return
+     */
+    List<EduChapter> getChapterTree(String courseId);
 }

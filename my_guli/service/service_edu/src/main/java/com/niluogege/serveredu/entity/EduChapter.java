@@ -1,5 +1,6 @@
 package com.niluogege.serveredu.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
@@ -10,6 +11,7 @@ import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * <p>
@@ -42,12 +44,16 @@ public class EduChapter implements Serializable {
     private Integer sort;
 
     @ApiModelProperty(value = "创建时间")
-    @TableField("gmt_create")
+    @TableField(value = "gmt_create",fill = FieldFill.INSERT)
     private LocalDateTime gmtCreate;
 
     @ApiModelProperty(value = "更新时间")
-    @TableField("gmt_modified")
+    @TableField(value = "gmt_modified",fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime gmtModified;
 
+
+    @ApiModelProperty("小节")
+    @TableField(exist = false)
+    private List<EduVideo> children;
 
 }
