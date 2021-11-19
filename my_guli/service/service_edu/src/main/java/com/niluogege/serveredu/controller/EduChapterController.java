@@ -28,6 +28,7 @@ import java.util.List;
 @Api(tags = "EduChapterController")
 @RestController
 @RequestMapping("/serveredu/edu-chapter")
+@CrossOrigin //跨域
 public class EduChapterController {
 
     @Autowired
