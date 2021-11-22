@@ -1,7 +1,10 @@
 package com.niluogege.serveredu.controller;
 
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.niluogege.commonutils.R;
+import com.niluogege.serveredu.entity.EduCourse;
+import com.niluogege.serveredu.entity.EduCourseQuery;
 import com.niluogege.serveredu.entity.vo.CoursePublishVo;
 import com.niluogege.serveredu.entity.vo.CourseVo;
 import com.niluogege.serveredu.service.EduCourseService;
@@ -12,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
+import java.util.List;
 
 /**
  * <p>
@@ -77,10 +81,22 @@ public class EduCourseController {
     @ApiOperation("发布课程")
     @PostMapping("/publish/{courseId}")
     public R publishCource(
-            @ApiParam(value = "courseId",required = true) @PathVariable() String courseId
-    ){
-      boolean result =  courseService.publishCource(courseId);
-      return R.simpleReturn(result);
+            @ApiParam(value = "courseId", required = true) @PathVariable() String courseId
+    ) {
+        boolean result = courseService.publishCource(courseId);
+        return R.simpleReturn(result);
     }
 
+
+    @ApiOperation("搜索")
+    @GetMapping("/{page}/{limit}")
+    public R searchCource(
+            @ApiParam(value = "当前页", required = true) @PathVariable Integer page,
+            @ApiParam(value = "每页数量", required = true) @PathVariable Integer limit,
+            @ApiParam(value = "查询对象") EduCourseQuery query
+    ) {
+
+        IPage<EduCourse> list = courseService.searchCource(page, limit, query);
+        return R.ok().data("list", list.getRecords()).data("total", list.getTotal());
+    }
 }

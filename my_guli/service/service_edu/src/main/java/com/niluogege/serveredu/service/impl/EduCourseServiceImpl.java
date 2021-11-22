@@ -1,18 +1,27 @@
 package com.niluogege.serveredu.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.niluogege.serveredu.entity.EduCourse;
 import com.niluogege.serveredu.entity.EduCourseDescription;
+import com.niluogege.serveredu.entity.EduCourseQuery;
 import com.niluogege.serveredu.entity.vo.CoursePublishVo;
 import com.niluogege.serveredu.entity.vo.CourseVo;
 import com.niluogege.serveredu.mapper.EduCourseMapper;
 import com.niluogege.serveredu.service.EduCourseDescriptionService;
 import com.niluogege.serveredu.service.EduCourseService;
 import com.niluogege.servicebase.exceptionhandler.ServiceException;
+import org.apache.poi.util.StringUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -135,5 +144,42 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         EduCourse eduCourse = new EduCourse();
         eduCourse.setStatus("Normal");
         return updateById(eduCourse);
+    }
+
+    /**
+     * 搜索
+     * @param page
+     * @param limit
+     * @param query
+     * @return
+     */
+    @Override
+    public IPage<EduCourse> searchCource(Integer page, Integer limit, EduCourseQuery query) {
+        String title = query.getTitle();
+        String teacherId = query.getTeacherId();
+        String subjectId = query.getSubjectId();
+        String subjectParentId = query.getSubjectParentId();
+
+
+        QueryWrapper<EduCourse> queryWrapper = new QueryWrapper<>();
+        if (!StringUtils.isEmpty(title)){
+            queryWrapper.like("title",title);
+        }
+
+        if (!StringUtils.isEmpty(teacherId)){
+            queryWrapper.eq("teacher_id",teacherId);
+        }
+
+        if (!StringUtils.isEmpty(subjectParentId)){
+            queryWrapper.eq("subject_parent_id",subjectParentId);
+        }
+
+        if (!StringUtils.isEmpty(subjectId)){
+            queryWrapper.eq("subject_id",subjectId);
+        }
+
+        Page<EduCourse> p = new Page<EduCourse>(page,limit);
+        IPage<EduCourse> coursePage = page(p, queryWrapper);
+        return coursePage;
     }
 }

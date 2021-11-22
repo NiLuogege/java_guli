@@ -1,9 +1,13 @@
 package com.niluogege.serveredu.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.niluogege.serveredu.entity.EduCourse;
+import com.niluogege.serveredu.entity.EduCourseQuery;
 import com.niluogege.serveredu.entity.vo.CoursePublishVo;
 import com.niluogege.serveredu.entity.vo.CourseVo;
+
+import java.util.List;
 
 /**
  * <p>
@@ -49,4 +53,14 @@ public interface EduCourseService extends IService<EduCourse> {
      * @return
      */
     boolean publishCource(String courseId);
+
+    /**
+     * 搜索
+     * @param page
+     * @param limit
+     * @param query
+     * @return
+     */
+    IPage<EduCourse> searchCource(Integer page, Integer limit, EduCourseQuery query);
+
 }
