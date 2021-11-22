@@ -42,4 +42,11 @@ public interface EduCourseService extends IService<EduCourse> {
      * @return
      */
     CoursePublishVo getCoursePublishVo(String courseId);
+
+    /**
+     * 发布课程
+     * @param courseId
+     * @return
+     */
+    boolean publishCource(String courseId);
 }

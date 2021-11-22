@@ -11,6 +11,8 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
+
 /**
  * <p>
  * 课程 前端控制器
@@ -69,6 +71,16 @@ public class EduCourseController {
     ) {
         CoursePublishVo result = courseService.getCoursePublishVo(courseId);
         return R.ok().data(result);
+    }
+
+
+    @ApiOperation("发布课程")
+    @PostMapping("/publish/{courseId}")
+    public R publishCource(
+            @ApiParam(value = "courseId",required = true) @PathVariable() String courseId
+    ){
+      boolean result =  courseService.publishCource(courseId);
+      return R.simpleReturn(result);
     }
 
 }

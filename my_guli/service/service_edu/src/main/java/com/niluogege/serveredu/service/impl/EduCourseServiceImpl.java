@@ -124,4 +124,16 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
       return   courseMapper.getCoursePublishVo(courseId);
 
     }
+
+    /**
+     * 发布课程
+     * @param courseId
+     * @return
+     */
+    @Override
+    public boolean publishCource(String courseId) {
+        EduCourse eduCourse = new EduCourse();
+        eduCourse.setStatus("Normal");
+        return updateById(eduCourse);
+    }
 }
