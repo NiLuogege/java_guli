@@ -99,4 +99,15 @@ public class EduCourseController {
         IPage<EduCourse> list = courseService.searchCource(page, limit, query);
         return R.ok().data("list", list.getRecords()).data("total", list.getTotal());
     }
+
+    @ApiOperation("删除课程")
+    @DeleteMapping("/{courseId}")
+    public R removeCourseById(
+            @ApiParam(value = "courseId", required = true) @PathVariable() String courseId
+    ) {
+
+        boolean result = courseService.removeCourseById(courseId);
+
+        return R.simpleReturn(result);
+    }
 }

@@ -63,4 +63,10 @@ public interface EduCourseService extends IService<EduCourse> {
      */
     IPage<EduCourse> searchCource(Integer page, Integer limit, EduCourseQuery query);
 
+    /**
+     * 删除课程
+     * @param courseId
+     * @return
+     */
+    boolean removeCourseById(String courseId);
 }

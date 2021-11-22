@@ -17,6 +17,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
         //这里的 fieldName 是JavaBean中的 属性名 不是 数据库中的列名
         setFieldValByName("gmtCreate", LocalDateTime.now(),metaObject);
         setFieldValByName("gmtModified",LocalDateTime.now(),metaObject);
+        setFieldValByName("isDeleted",0,metaObject);
     }
 
     @Override

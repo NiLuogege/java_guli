@@ -1,5 +1,6 @@
 package com.niluogege.serveredu.config;
 
+import com.baomidou.mybatisplus.extension.injector.LogicSqlInjector;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor;
 import org.mybatis.spring.annotation.MapperScan;
@@ -34,4 +35,12 @@ public class MyBatisPlusConfig {
     public PaginationInterceptor paginationInterceptor(){
         return new PaginationInterceptor();
     }
+
+    /**
+     * 逻辑删除
+     */
+//    @Bean
+//    public LogicSqlInjector sqlInjector(){
+//        return new LogicSqlInjector();
+//    }
 }

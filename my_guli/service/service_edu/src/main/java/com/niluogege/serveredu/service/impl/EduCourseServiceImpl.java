@@ -10,6 +10,7 @@ import com.niluogege.serveredu.entity.EduCourseQuery;
 import com.niluogege.serveredu.entity.vo.CoursePublishVo;
 import com.niluogege.serveredu.entity.vo.CourseVo;
 import com.niluogege.serveredu.mapper.EduCourseMapper;
+import com.niluogege.serveredu.service.EduChapterService;
 import com.niluogege.serveredu.service.EduCourseDescriptionService;
 import com.niluogege.serveredu.service.EduCourseService;
 import com.niluogege.servicebase.exceptionhandler.ServiceException;
@@ -38,10 +39,12 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
     private EduCourseDescriptionService courseDescriptionService;
 
     @Autowired
+    private EduChapterService chapterService;
+
+    @Autowired
     private EduCourseMapper courseMapper;
 
     /**
-     *
      * 添加课程
      *
      * @param courseVo
@@ -83,10 +86,14 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         CourseVo courseVo = new CourseVo();
 
         EduCourse eduCourse = getById(courseId);
-        BeanUtils.copyProperties(eduCourse, courseVo);
+        if (eduCourse != null) {
+            BeanUtils.copyProperties(eduCourse, courseVo);
+        }
 
         EduCourseDescription courseDescription = courseDescriptionService.getById(courseId);
-        BeanUtils.copyProperties(courseDescription, courseVo);
+        if (courseDescription != null) {
+            BeanUtils.copyProperties(courseDescription, courseVo);
+        }
 
 
         return courseVo;
@@ -107,8 +114,8 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
 
         //更逊课程
         boolean result1 = updateById(eduCourse);
-        if (!result1){
-            throw new ServiceException(-1,"更逊课程失败");
+        if (!result1) {
+            throw new ServiceException(-1, "更逊课程失败");
         }
 
         EduCourseDescription eduCourseDescription = new EduCourseDescription();
@@ -116,8 +123,8 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         //更逊描述
         boolean result2 = courseDescriptionService.updateById(eduCourseDescription);
 
-        if (!result2){
-            throw new ServiceException(-1,"更逊描述失败");
+        if (!result2) {
+            throw new ServiceException(-1, "更逊描述失败");
         }
 
         return result1 && result2;
@@ -125,17 +132,19 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
 
     /**
      * 发布详情
+     *
      * @param courseId
      * @return
      */
     @Override
     public CoursePublishVo getCoursePublishVo(String courseId) {
-      return   courseMapper.getCoursePublishVo(courseId);
+        return courseMapper.getCoursePublishVo(courseId);
 
     }
 
     /**
      * 发布课程
+     *
      * @param courseId
      * @return
      */
@@ -148,6 +157,7 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
 
     /**
      * 搜索
+     *
      * @param page
      * @param limit
      * @param query
@@ -162,24 +172,48 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
 
 
         QueryWrapper<EduCourse> queryWrapper = new QueryWrapper<>();
-        if (!StringUtils.isEmpty(title)){
-            queryWrapper.like("title",title);
+        if (!StringUtils.isEmpty(title)) {
+            queryWrapper.like("title", title);
         }
 
-        if (!StringUtils.isEmpty(teacherId)){
-            queryWrapper.eq("teacher_id",teacherId);
+        if (!StringUtils.isEmpty(teacherId)) {
+            queryWrapper.eq("teacher_id", teacherId);
         }
 
-        if (!StringUtils.isEmpty(subjectParentId)){
-            queryWrapper.eq("subject_parent_id",subjectParentId);
+        if (!StringUtils.isEmpty(subjectParentId)) {
+            queryWrapper.eq("subject_parent_id", subjectParentId);
         }
 
-        if (!StringUtils.isEmpty(subjectId)){
-            queryWrapper.eq("subject_id",subjectId);
+        if (!StringUtils.isEmpty(subjectId)) {
+            queryWrapper.eq("subject_id", subjectId);
         }
 
-        Page<EduCourse> p = new Page<EduCourse>(page,limit);
+        Page<EduCourse> p = new Page<EduCourse>(page, limit);
         IPage<EduCourse> coursePage = page(p, queryWrapper);
         return coursePage;
+    }
+
+    @Override
+    @Transactional
+    public boolean removeCourseById(String courseId) {
+
+        //删除章节
+        boolean deleteChapter = chapterService.deleteChapterById(courseId);
+        if (!deleteChapter) {
+            throw new ServiceException(-1, "删除章节失败");
+        }
+
+        //删除描述
+        boolean deleteDescription = courseDescriptionService.removeById(courseId);
+        if (!deleteDescription) {
+            throw new ServiceException(-1, "删除描述失败");
+        }
+
+        //删除课程
+        boolean removeCourse = removeById(courseId);
+        if (!removeCourse) {
+            throw new ServiceException(-1, "删除课程失败");
+        }
+        return true;
     }
 }

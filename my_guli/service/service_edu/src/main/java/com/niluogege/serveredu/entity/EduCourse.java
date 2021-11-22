@@ -21,7 +21,6 @@ import java.time.LocalDateTime;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
 @TableName("edu_course")
 @ApiModel(value="EduCourse对象", description="课程")
 public class EduCourse implements Serializable {
@@ -71,7 +70,8 @@ public class EduCourse implements Serializable {
     private String status;
 
     @ApiModelProperty(value = "逻辑删除 1（true）已删除， 0（false）未删除")
-    @TableField("is_deleted")
+    @TableField(value = "is_deleted",fill = FieldFill.INSERT)
+    @TableLogic //使用逻辑删除
     private Integer isDeleted;
 
     @ApiModelProperty(value = "创建时间")
