@@ -1,6 +1,7 @@
 package com.niluogege.servercms.controller;
 
 
+import com.niluogege.commonutils.CacheKeyPrefix;
 import com.niluogege.commonutils.R;
 import com.niluogege.servercms.entity.CrmBanner;
 import com.niluogege.servercms.service.CrmBannerService;
@@ -8,6 +9,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -29,6 +32,7 @@ public class BannerBackController {
     @Autowired
     private CrmBannerService bannerService;
 
+    @CacheEvict(value = CacheKeyPrefix.BANNER,allEntries = true)
     @ApiOperation("新增")
     @PostMapping("/")
     public R save(@RequestBody CrmBanner crmBanner) {
@@ -36,6 +40,7 @@ public class BannerBackController {
     }
 
 
+    @CacheEvict(value =  CacheKeyPrefix.BANNER,allEntries = true)
     @ApiOperation("删除")
     @DeleteMapping("/{id}")
     public R delete(
@@ -44,6 +49,10 @@ public class BannerBackController {
         return R.simpleReturn(bannerService.removeById(id));
     }
 
+    /**
+     * allEntries = true 回吧 value 下 所有缓存清掉 ，value 相当于 一个分类
+     */
+    @CacheEvict(value =  CacheKeyPrefix.BANNER,allEntries = true)
     @ApiOperation("编辑")
     @PutMapping("/")
     public R update(@RequestBody CrmBanner crmBanner) {
