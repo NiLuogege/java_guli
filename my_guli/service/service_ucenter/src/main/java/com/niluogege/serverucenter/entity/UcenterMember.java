@@ -61,7 +61,7 @@ public class UcenterMember implements Serializable {
 
     @ApiModelProperty(value = "逻辑删除 1（true）已删除， 0（false）未删除")
     @TableField(value = "is_deleted",fill = FieldFill.INSERT)
-    private Boolean isDeleted;
+    private Integer isDeleted;
 
     @ApiModelProperty(value = "创建时间")
     @TableField(value = "gmt_create",fill = FieldFill.INSERT)

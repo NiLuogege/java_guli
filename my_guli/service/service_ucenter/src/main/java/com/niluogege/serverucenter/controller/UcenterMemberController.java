@@ -3,6 +3,7 @@ package com.niluogege.serverucenter.controller;
 
 import com.niluogege.commonutils.R;
 import com.niluogege.serverucenter.entity.UcenterMember;
+import com.niluogege.serverucenter.entity.in.RegisterIn;
 import com.niluogege.serverucenter.service.UcenterMemberService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -42,4 +43,11 @@ public class UcenterMemberController {
         return R.ok().data("list", memberService.list(null));
     }
 
+
+    @ApiOperation("注册")
+    @PostMapping("/registe")
+    public R registe(@RequestBody RegisterIn register) {
+        boolean result = memberService.registe(register);
+        return R.simpleReturn(result);
+    }
 }
