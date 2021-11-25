@@ -1,7 +1,6 @@
 package com.niluogege.servercms.entity;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -23,12 +22,13 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("crm_banner")
-@ApiModel(value="CrmBanner对象", description="首页banner表")
+@ApiModel(value = "CrmBanner对象", description = "首页banner表")
 public class CrmBanner implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "ID")
+    @TableId(type = IdType.ID_WORKER_STR)
     private String id;
 
     @ApiModelProperty(value = "标题")
@@ -46,15 +46,15 @@ public class CrmBanner implements Serializable {
     private Integer sort;
 
     @ApiModelProperty(value = "逻辑删除 1（true）已删除， 0（false）未删除")
-    @TableField("is_deleted")
-    private Boolean isDeleted;
+    @TableField(value = "is_deleted", fill =  FieldFill.INSERT)
+    private Integer isDeleted;
 
     @ApiModelProperty(value = "创建时间")
-    @TableField("gmt_create")
+    @TableField(value = "gmt_create", fill = FieldFill.INSERT)
     private LocalDateTime gmtCreate;
 
     @ApiModelProperty(value = "更新时间")
-    @TableField("gmt_modified")
+    @TableField(value = "gmt_modified", fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime gmtModified;
 
 

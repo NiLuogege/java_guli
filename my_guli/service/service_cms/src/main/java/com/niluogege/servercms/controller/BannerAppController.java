@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = "CrmBannerController")
 @RestController
 @RequestMapping("/servercms/crm-banner")
-public class CrmBannerController {
+public class BannerAppController {
 
 
     @ApiOperation("/")

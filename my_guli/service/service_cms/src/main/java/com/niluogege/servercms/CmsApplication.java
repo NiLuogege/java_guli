@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @SpringBootApplication
 @EnableDiscoveryClient
 @ComponentScan(basePackages = "com.niluogege")
-@MapperScan(basePackages = "com.niluogege.servercms.mapper")
 @EnableTransactionManagement
 public class CmsApplication {
 
