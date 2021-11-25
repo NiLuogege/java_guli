@@ -3,7 +3,9 @@ package com.niluogege.serverucenter.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.niluogege.commonutils.BCrypt;
+import com.niluogege.commonutils.JwtUtils;
 import com.niluogege.serverucenter.entity.UcenterMember;
+import com.niluogege.serverucenter.entity.in.LoginIn;
 import com.niluogege.serverucenter.entity.in.RegisterIn;
 import com.niluogege.serverucenter.mapper.UcenterMemberMapper;
 import com.niluogege.serverucenter.service.UcenterMemberService;
@@ -24,6 +26,8 @@ import org.springframework.util.StringUtils;
  */
 @Service
 public class UcenterMemberServiceImpl extends ServiceImpl<UcenterMemberMapper, UcenterMember> implements UcenterMemberService {
+
+    static String s = "$2a$10$DeJncWvyEtcrbfZeL43SzO";
 
     @Autowired
     private UcenterMemberMapper memberMapper;
@@ -57,11 +61,36 @@ public class UcenterMemberServiceImpl extends ServiceImpl<UcenterMemberMapper, U
 
         UcenterMember ucenterMember = new UcenterMember();
         BeanUtils.copyProperties(register, ucenterMember);
-        ucenterMember.setPassword(BCrypt.hashpw(password, BCrypt.gensalt()));
+        ucenterMember.setPassword(BCrypt.hashpw(password, s));
 
 
         int insert = memberMapper.insert(ucenterMember);
         redisTemplate.boundValueOps("sendLoginMsm_" + mobile).set("");
         return insert > 0;
+    }
+
+    @Override
+    public String login(LoginIn login) {
+        String mobile = login.getMobile();
+        String password = login.getPassword();
+
+        if (StringUtils.isEmpty(mobile) || StringUtils.isEmpty(password)) {
+            throw new ServiceException(-1, "手机号 or 密码 为空");
+        }
+
+        UcenterMember user = memberMapper.selectOne(new QueryWrapper<UcenterMember>().eq("mobile", mobile).eq("password", BCrypt.hashpw(password, s)));
+
+
+        if (user != null) {
+
+            if (user.getIsDisabled()) {
+                throw new ServiceException(-1, "手机号被禁用");
+            }
+
+
+            return JwtUtils.getJwtToken(user.getId(), user.getNickname());
+        }
+
+        throw new ServiceException(-1, "登录失败");
     }
 }

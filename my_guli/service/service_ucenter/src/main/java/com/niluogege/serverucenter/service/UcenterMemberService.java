@@ -2,6 +2,7 @@ package com.niluogege.serverucenter.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.niluogege.serverucenter.entity.UcenterMember;
+import com.niluogege.serverucenter.entity.in.LoginIn;
 import com.niluogege.serverucenter.entity.in.RegisterIn;
 
 /**
@@ -15,4 +16,6 @@ import com.niluogege.serverucenter.entity.in.RegisterIn;
 public interface UcenterMemberService extends IService<UcenterMember> {
 
     boolean registe(RegisterIn register);
+
+    String login(LoginIn login);
 }
