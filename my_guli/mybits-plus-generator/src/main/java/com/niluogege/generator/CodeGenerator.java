@@ -73,7 +73,7 @@ public class CodeGenerator {
 
         // 包配置
         PackageConfig pc = new PackageConfig();
-        pc.setModuleName("serveredu")
+        pc.setModuleName("servercms")
                 .setParent("com.niluogege")
                 .setEntity("entity")
                 .setMapper("mapper")
