@@ -16,6 +16,10 @@ public interface EduVideoService extends IService<EduVideo> {
 
     Integer getCountByChapterId(String chapterId);
 
+    boolean removeByChapterId(String chapterId);
+
+    boolean testSpringClode(String chapterId);
+
     boolean add(EduVideoForm videoForm);
 
     boolean updateById(EduVideoForm videoForm);
