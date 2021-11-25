@@ -5,6 +5,11 @@
 
 
 
+nacos启动
+cmd 下运行 命令 startup.cmd -m standalone
 
 
-291页
+339页
+
+
+

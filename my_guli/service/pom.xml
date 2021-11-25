@@ -65,11 +65,11 @@
         <!--            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>-->
         <!--        </dependency>-->
 
-        <!--        &lt;!&ndash;服务注册&ndash;&gt;-->
-        <!--        <dependency>-->
-        <!--            <groupId>org.springframework.cloud</groupId>-->
-        <!--            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>-->
-        <!--        </dependency>-->
+        <!--nacos 服务注册-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
         <!--        &lt;!&ndash;服务调用&ndash;&gt;-->
         <!--        <dependency>-->
         <!--            <groupId>org.springframework.cloud</groupId>-->
