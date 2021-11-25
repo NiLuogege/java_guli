@@ -2,11 +2,16 @@ package com.niluogege.servercms.controller;
 
 
 import com.niluogege.commonutils.R;
+import com.niluogege.servercms.entity.CrmBanner;
+import com.niluogege.servercms.service.CrmBannerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * <p>
@@ -16,16 +21,19 @@ import org.springframework.web.bind.annotation.RestController;
  * @author niluogege
  * @since 2021-11-25
  */
-@Api(tags = "CrmBannerController")
+@Api(tags = "AppBanner")
 @RestController
-@RequestMapping("/servercms/crm-banner")
+@RequestMapping("/back/banner")
 public class BannerAppController {
 
+    @Autowired
+    private CrmBannerService bannerService;
 
-    @ApiOperation("/")
+
     @GetMapping("/")
-    public R aa(){
-        return R.ok();
+    public R list(){
+        List<CrmBanner> list = bannerService.list(null);
+        return R.ok().data("list",list);
     }
 
 }
