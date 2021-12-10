@@ -18,4 +18,6 @@ public interface UcenterMemberService extends IService<UcenterMember> {
     boolean registe(RegisterIn register);
 
     String login(LoginIn login);
+
+    UcenterMember getMenberByOperid(String openid);
 }

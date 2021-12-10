@@ -93,4 +93,10 @@ public class UcenterMemberServiceImpl extends ServiceImpl<UcenterMemberMapper, U
 
         throw new ServiceException(-1, "登录失败");
     }
+
+    @Override
+    public UcenterMember getMenberByOperid(String openid) {
+
+        return new UcenterMember();
+    }
 }
