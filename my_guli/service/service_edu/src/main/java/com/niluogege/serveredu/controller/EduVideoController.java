@@ -24,7 +24,6 @@ import java.util.List;
 @Api(tags = "EduVideoController")
 @RestController
 @RequestMapping("/serveredu/edu-video")
-@CrossOrigin//跨域
 public class EduVideoController {
 
     @Autowired

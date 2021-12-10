@@ -19,7 +19,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.util.List;
 
-@CrossOrigin
 @RequestMapping("/app")
 @RestController
 @Api(tags = "APP")

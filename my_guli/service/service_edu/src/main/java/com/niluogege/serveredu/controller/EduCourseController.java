@@ -27,7 +27,6 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/serveredu/edu-course")
-@CrossOrigin//解决跨域问题
 @Api(tags = "EduCourseController")
 public class EduCourseController {
 

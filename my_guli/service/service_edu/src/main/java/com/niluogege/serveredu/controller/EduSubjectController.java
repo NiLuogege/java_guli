@@ -31,7 +31,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/serveredu/edu-subject")
 @Api(tags = "EduSubjectController")
-@CrossOrigin//解决跨域问题
 public class EduSubjectController {
 
     @Autowired
